@@ -17,11 +17,12 @@ protected:
 public:
     Shader();
     ~Shader();
-    bool CreateShaderFromSource(std::string& VertexShaderSrc, std::string& FragmentShaderSrc);
+    bool CreateShaderFromSource(std::string VertexShaderSrc, std::string FragmentShaderSrc);
     void Bind();
     void Unbind();
     void Destroy();
     void SetUniform4f(std::string Name, const GLfloat* Matrix4f);
+    void SetUniform1f(std::string Name, GLfloat Val);
     FORCEINLINE char* GetErrorMessage() { return m_ErrorMsg; }
 };
 

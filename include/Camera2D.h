@@ -9,7 +9,7 @@
 
 class Camera2D {
 public:
-    Camera2D();
+    Camera2D(float Width, float Height);
     ~Camera2D();
 
     void Update();

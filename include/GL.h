@@ -60,6 +60,15 @@ public:
     FORCEINLINE static void SetUniformMatrix4f(GLuint ProgramId, std::string VariableName, const GLfloat* Ptr) {
         glUniformMatrix4fv(glGetUniformLocation(ProgramId, VariableName.c_str()), 1, GL_FALSE, Ptr);
     }
+    FORCEINLINE static void SetUniform1f(GLuint ProgramId, std::string VariableName, GLfloat Val) {
+        glUniform1f(glGetUniformLocation(ProgramId, VariableName.c_str()), Val);
+    }
+    FORCEINLINE static void DeleteBuffers(GLuint Count, GLuint* BufferId) {
+        glDeleteBuffers(Count, BufferId);
+    }
+    FORCEINLINE static void DeleteArrays(GLuint Count, GLuint* ArrayId) {
+        glDeleteVertexArrays(Count, ArrayId);
+    }
 };
 
 #endif

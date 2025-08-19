@@ -10,18 +10,21 @@ Shader::~Shader()
     NOT_IMPLEMENTED();
 }
 
-bool Shader::CreateShaderFromSource(std::string &VertexShaderSrc, std::string &FragmentShaderSrc)
+bool Shader::CreateShaderFromSource(std::string VertexShaderSrc, std::string FragmentShaderSrc)
 {
     /* Create shader and its program. */
-    const char* VertexShader = VertexShaderSrc.c_str();
-    const char* FragmentShader = FragmentShaderSrc.c_str();
+    std::string *VertexShader = new std::string(VertexShaderSrc.c_str());
+    std::string *FragmentShader = new std::string(FragmentShaderSrc.c_str());
+
+    const char* vertex = VertexShader->c_str();
+    const char* fragment = FragmentShader->c_str();
 
     /* Create shader and compile */
     GLuint VertexShaderId = glCreateShader(APP_VERTEX_SHADER);
-    OpenGL::ShaderSource(VertexShaderId, 1, &VertexShader, NULL);
+    OpenGL::ShaderSource(VertexShaderId, 1, &vertex, NULL);
     OpenGL::CompileShader(VertexShaderId);
     GLuint FragmentShaderId = glCreateShader(APP_FRAGMENT_SHADER);
-    OpenGL::ShaderSource(FragmentShaderId, 1, &FragmentShader, NULL);
+    OpenGL::ShaderSource(FragmentShaderId, 1, &fragment, NULL);
     OpenGL::CompileShader(FragmentShaderId);
 
     /* Check shader compile errors. */
@@ -43,12 +46,21 @@ bool Shader::CreateShaderFromSource(std::string &VertexShaderSrc, std::string &F
     OpenGL::DeleteShader(VertexShaderId);
     OpenGL::DeleteShader(FragmentShaderId);
 
+    delete FragmentShader;
+    delete VertexShader;
+    
     return (m_ProgramId > 0) ? true : false;
 }
 
 void Shader::SetUniform4f(std::string Name, const GLfloat* Matrix4f) {
     APP_ASSERT(m_ProgramId > 0 && "You should compile shader first.");
     OpenGL::SetUniformMatrix4f(m_ProgramId, Name, Matrix4f);
+}
+
+void Shader::SetUniform1f(std::string Name, GLfloat Val)
+{
+    APP_ASSERT(m_ProgramId > 0 && "You should compile shader first.");
+    OpenGL::SetUniform1f(m_ProgramId, Name, Val);
 }
 
 void Shader::Bind()

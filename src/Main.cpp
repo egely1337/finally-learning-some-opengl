@@ -1,61 +1,60 @@
 #include <App.h>
+
+#include <Camera2D.h>
 #include <Shader.h>
 #include <Mesh.h>
-#include <Camera2D.h>
 
-App GApp;
-Mesh mesh;
-Shader MeshShader;
-Camera2D camera;
+/*  A NOTE FOR MYSELF:
+    Firstly, I hate C++. I hate using it, I hate writing it.
+    Secondly, there is a problem in Shader.cpp:13, we getting an SIGSEGV when using stack string.
+    I really need to fix this problem.
 
-    std::string VertexShader = R"(
-        #version 330 core
-        layout (location = 0) in vec2 aPos;
-        uniform mat4 MVP;
+    Have a good day.
+*/
 
-        void main() {
-            gl_Position = MVP * vec4(aPos * 0.5, 0.0, 1.0);
-        }
-    )";
+std::string VertexShader = R"(
+    #version 330 core
+    layout (location = 0) in vec2 aPos;
 
-    std::string FragmentShader = R"(
-        #version 330 core
-        out vec4 FragColor;
+    uniform mat4 MVP;
+    uniform float Scale;
 
-        void main() {
-            // gl_FragCoord ile piksel tabanlı pseudo-zaman
-            float t = mod(gl_FragCoord.x * 0.3 + gl_FragCoord.y * 0.2, 100.0); // katsayıları 10 kat artırdık
+    void main() {
+        gl_Position = MVP * vec4(aPos * Scale, 0.0, 1.0);
+    }
+)";
 
-            float r = 0.5 + 0.5 * sin(t + gl_FragCoord.x * 0.5);
-            float g = 0.5 + 0.5 * sin(t + gl_FragCoord.y * 0.5);
-            float b = 0.5 + 0.5 * sin(t + (gl_FragCoord.x + gl_FragCoord.y) * 0.5);
+std::string FragmentShader = R"(
+    #version 330 core
+    out vec4 FragColor;
 
-            FragColor = vec4(r, g, b, 1.0);
-        }
-    )";
+    void main() {
+        FragColor = vec4(ColorR, 1, 1, 1.0);
+    }
+)";
 
+App app;
+Camera2D camera(800, 600);
+Mesh mesh(VertexShader, FragmentShader);
 
 int main(int argc, char** argv) {
-    GApp.CreateWindow("Hello, World", 800, 600);
+    app.CreateWindow("Hello, World", 800, 600);
 
-    mesh.Bind();
-    MeshShader.CreateShaderFromSource(VertexShader, FragmentShader);
+    //mesh.Bind();
 
-    while(!GApp.IsWindowShouldClose()) {
-        GApp.Clear();
+    while(!app.IsWindowShouldClose()) {
+        app.Clear();
 
         /* Scene Begin */
 
         camera.Update();
-        MeshShader.SetUniform4f("MVP", (const GLfloat*)&camera.GetCameraMatrix()[0]);
-        MeshShader.Bind();
         mesh.Draw();
 
-        /* Scene End*/
+        /* Scene End */
         
 
-        GApp.SwapContext();
-        GApp.WindowPollEvents();
+        app.SwapContext();
+        app.WindowPollEvents();
     }
 
 }

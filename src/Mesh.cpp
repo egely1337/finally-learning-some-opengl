@@ -1,19 +1,28 @@
 #include <Mesh.h>
 
-Mesh::Mesh()
+Mesh::Mesh(std::string& VertexShader, std::string& FragmentShader) : m_Camera(800, 600)
 {
-    NOT_IMPLEMENTED();
+    APP_ASSERT(&m_Camera && "Camera should be initialized.");
+    APP_ASSERT(m_Shader.CreateShaderFromSource(VertexShader, FragmentShader) && "Mesh shader could not be created.");
 }
 
 Mesh::~Mesh()
 {
-    NOT_IMPLEMENTED();
+    m_Shader.Destroy();
 }
 
 void Mesh::Draw()
 {
+    /* Shader */
+    m_Shader.Bind();
+    m_Shader.SetUniform4f("MVP", (const GLfloat*)&m_Camera.GetCameraMatrix()[0]);
+    m_Shader.SetUniform1f("Scale", Scale());
+
+    /* Draw */
     OpenGL::BindVertexArray(m_VAO);
     OpenGL::DrawArrays(GL_POLYGON, 0, m_Verticies.size());
+
+    /* Unbind */
     OpenGL::BindVertexArray(0);
 }
 
@@ -39,5 +48,16 @@ void Mesh::Bind()
     OpenGL::EnableVertexAttribArray(0);
 
     /* Disable Array Object */
-    OpenGL::BindVertexArray(0);    
+    OpenGL::BindVertexArray(0);
+}
+
+void Mesh::Destroy() {
+    /* Clean up verticies. */
+    m_Verticies.clear();
+
+    /* Clean up VAO and VBO */
+    assert(m_VAO > 0 && m_VBO > 0 && "You can't destroy a mesh you didn't even create.");
+
+    OpenGL::DeleteBuffers(1, &m_VBO);
+    OpenGL::DeleteArrays(1, &m_VAO);
 }
