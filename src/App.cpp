@@ -79,6 +79,9 @@ void App::WindowPollEvents()
 {
     SDL_PollEvent(&m_WindowEvent);
 
+    /* Handle Events */
+    Keyboard::GetInstance().HandleEvent(m_WindowEvent);
+    
     switch (m_WindowEvent.type)
     {
     case SDL_QUIT:

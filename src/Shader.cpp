@@ -13,11 +13,8 @@ Shader::~Shader()
 bool Shader::CreateShaderFromSource(std::string VertexShaderSrc, std::string FragmentShaderSrc)
 {
     /* Create shader and its program. */
-    std::string *VertexShader = new std::string(VertexShaderSrc.c_str());
-    std::string *FragmentShader = new std::string(FragmentShaderSrc.c_str());
-
-    const char* vertex = VertexShader->c_str();
-    const char* fragment = FragmentShader->c_str();
+    const char* vertex = VertexShaderSrc.c_str();
+    const char* fragment = FragmentShaderSrc.c_str();
 
     /* Create shader and compile */
     GLuint VertexShaderId = glCreateShader(APP_VERTEX_SHADER);
@@ -46,9 +43,6 @@ bool Shader::CreateShaderFromSource(std::string VertexShaderSrc, std::string Fra
     OpenGL::DeleteShader(VertexShaderId);
     OpenGL::DeleteShader(FragmentShaderId);
 
-    delete FragmentShader;
-    delete VertexShader;
-    
     return (m_ProgramId > 0) ? true : false;
 }
 
@@ -65,11 +59,13 @@ void Shader::SetUniform1f(std::string Name, GLfloat Val)
 
 void Shader::Bind()
 {
+    APP_ASSERT(m_ProgramId > 0 && "You should compile shader first.");
     OpenGL::UseProgram(m_ProgramId);
 }
 
 void Shader::Unbind()
 {
+    APP_ASSERT(m_ProgramId > 0 && "You should compile shader first.");
     OpenGL::UseProgram(0);
 }
 

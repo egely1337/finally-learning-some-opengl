@@ -26,12 +26,14 @@ protected:
     /* Scene Attributes */
     Camera2D m_Camera;
 public:
-    Mesh(std::string& VertexShader, std::string& FragmentShader);
+    Mesh();
     ~Mesh();
 
     void Draw();
     void Bind();
     void Destroy();
+    void CompileShader(std::string& VertexShader, std::string& FragmentShader);
+    void SetScale(GLfloat NewScale);
     
     FORCEINLINE GLfloat& Scale() {return m_MeshScale;};
 };

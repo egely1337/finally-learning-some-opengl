@@ -1,9 +1,8 @@
 #include <Mesh.h>
 
-Mesh::Mesh(std::string& VertexShader, std::string& FragmentShader) : m_Camera(800, 600)
+Mesh::Mesh() : m_Camera(800, 600)
 {
     APP_ASSERT(&m_Camera && "Camera should be initialized.");
-    APP_ASSERT(m_Shader.CreateShaderFromSource(VertexShader, FragmentShader) && "Mesh shader could not be created.");
 }
 
 Mesh::~Mesh()
@@ -13,6 +12,9 @@ Mesh::~Mesh()
 
 void Mesh::Draw()
 {
+    /* Update Camera */
+    m_Camera.Update();
+
     /* Shader */
     m_Shader.Bind();
     m_Shader.SetUniform4f("MVP", (const GLfloat*)&m_Camera.GetCameraMatrix()[0]);
@@ -24,6 +26,7 @@ void Mesh::Draw()
 
     /* Unbind */
     OpenGL::BindVertexArray(0);
+    m_Shader.Unbind();
 }
 
 void Mesh::Bind()
@@ -60,4 +63,13 @@ void Mesh::Destroy() {
 
     OpenGL::DeleteBuffers(1, &m_VBO);
     OpenGL::DeleteArrays(1, &m_VAO);
+}
+
+void Mesh::CompileShader(std::string& VertexShader, std::string& FragmentShader) {
+    APP_ASSERT(m_Shader.CreateShaderFromSource(VertexShader, FragmentShader) && "Shader could not be compiled.");    
+}
+
+void Mesh::SetScale(GLfloat NewScale)
+{
+    m_MeshScale = NewScale;
 }

@@ -6,6 +6,7 @@
 #include <GL/glew.h>
 
 #include <Definitions.h>
+#include <Kbd.h>
 
 class App {
 public:

@@ -14,6 +14,7 @@ set(SOURCES
     src/Mesh.cpp
     src/Camera2D.cpp
     src/Camera3D.cpp
+    src/Kbd.cpp
 )
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include

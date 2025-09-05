@@ -20,5 +20,5 @@ void Camera2D::Update()
 
 glm::mat4 Camera2D::GetCameraMatrix()
 {
-    return m_ProjectionMatrix * m_ViewMatrix;
+    return (glm::mat4)m_ProjectionMatrix * m_ViewMatrix;
 }
