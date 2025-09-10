@@ -17,11 +17,11 @@ set(SOURCES
     src/Kbd.cpp
     src/Texture.cpp
 )
+
+# Include Directory
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-
-
 
 # Find Libraries
 find_package(SDL REQUIRED)

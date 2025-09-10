@@ -35,7 +35,6 @@ public:
     void Draw();
     void Bind();
     void Destroy();
-    void CompileShader(std::string& VertexShader, std::string& FragmentShader);
     void SetScale(GLfloat NewScale);
 
     FORCEINLINE Shader& GetShader() {return m_Shader;};

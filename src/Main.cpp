@@ -58,8 +58,8 @@ int main(int argc, char** argv) {
     Texture::Initialize();
 
     /* Set up mesh */
-    mesh.CompileShader(VertexShader, FragmentShader);
-    mesh.SetScale(150.f);
+    mesh.GetShader().CreateShaderFromSource(VertexShader, FragmentShader);
+    mesh.Scale() = 500.f;
     mesh.Bind();
 
     while(!app.IsWindowShouldClose()) {

@@ -1,9 +1,19 @@
 #include <Texture.h>
 
 #define STB_IMAGE_IMPLEMENTATION
-#include <stbi_image.h>
+#include <vendor/stbi_image.h>
 
-void Texture::Bind() {
+Texture::Texture()
+{
+    NOT_IMPLEMENTED();
+}
+
+Texture::~Texture() {
+    NOT_IMPLEMENTED();
+}
+
+void Texture::Bind()
+{
     glActiveTexture(GL_TEXTURE0);
     OpenGL::BindTexture(GL_TEXTURE_2D, m_TextureId);
 }

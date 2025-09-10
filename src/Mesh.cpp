@@ -98,9 +98,6 @@ void Mesh::Destroy() {
     OpenGL::DeleteArrays(1, &m_VAO);
 }
 
-void Mesh::CompileShader(std::string& VertexShader, std::string& FragmentShader) {
-    APP_ASSERT(m_Shader.CreateShaderFromSource(VertexShader, FragmentShader) && "Shader could not be compiled.");    
-}
 
 void Mesh::SetScale(GLfloat NewScale)
 {

@@ -30,6 +30,8 @@ struct Image {
 
 class Texture {
 public:
+    Texture();
+    ~Texture();
     void Bind();
     void Unbind();
     void Load(std::string&& Path);
