@@ -16,7 +16,6 @@ public:
     glm::mat4 GetCameraMatrix();
     FORCEINLINE glm::vec3& CameraPosition() {return m_CameraPos;}
     FORCEINLINE float& CameraRotation() {return m_CameraRotation;}
-
 protected:
     /* Projection&View Attributes */
     glm::mat4 m_ProjectionMatrix = glm::mat4(1.f);

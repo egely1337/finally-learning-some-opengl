@@ -16,6 +16,7 @@ set(SOURCES
     src/Camera3D.cpp
     src/Kbd.cpp
     src/Texture.cpp
+    src/Filesystem.cpp
 )
 
 # Include Directory

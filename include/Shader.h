@@ -22,6 +22,7 @@ public:
     void Unbind();
     void Destroy();
     void SetUniform4f(std::string Name, const GLfloat* Matrix4f);
+    void SetUniform2f(std::string Name, GLfloat x, GLfloat y);
     void SetUniform1f(std::string Name, GLfloat Val);
     void SetUniform1i(std::string Name, GLint Val);
     FORCEINLINE char* GetErrorMessage() { return m_ErrorMsg; }

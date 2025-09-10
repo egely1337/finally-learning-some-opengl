@@ -16,13 +16,12 @@ void Mesh::Draw()
     m_Camera.Update();
 
     /* Shader */
-    m_Shader.Bind();
     m_Texture.Bind();
+    m_Shader.Bind();
 
     m_Shader.SetUniform1i("Texture", TEXTURE_0);
-    m_Shader.SetUniform4f("MVP", (const GLfloat*)&m_Camera.GetCameraMatrix()[0]);
+    m_Shader.SetUniform4f("MVP", (const GLfloat*)&m_Camera.GetCameraMatrix()[0][0]);
     m_Shader.SetUniform1f("Scale", Scale());
-    
 
     /* Draw */
     OpenGL::BindVertexArray(m_VAO);
@@ -96,10 +95,4 @@ void Mesh::Destroy() {
     /* Clean up OpenGL */
     OpenGL::DeleteBuffers(1, &m_VBO);
     OpenGL::DeleteArrays(1, &m_VAO);
-}
-
-
-void Mesh::SetScale(GLfloat NewScale)
-{
-    m_MeshScale = NewScale;
 }

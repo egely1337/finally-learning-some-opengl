@@ -21,8 +21,12 @@ protected:
     GLuint m_VAO;
     std::vector<Vertex2f> m_Verticies;
 
-    /* Mesh Attributes */
-    GLfloat m_MeshScale = 1.f;
+    /* Transform */
+    glm::vec2 m_Position = glm::vec2(0.f, 0.f);
+    GLfloat m_Scale = 1.f;
+    GLfloat m_Rotation;
+
+    /* Shader and Texture */
     Shader m_Shader;
     Texture m_Texture;
 
@@ -35,10 +39,10 @@ public:
     void Draw();
     void Bind();
     void Destroy();
-    void SetScale(GLfloat NewScale);
 
     FORCEINLINE Shader& GetShader() {return m_Shader;};
-    FORCEINLINE GLfloat& Scale() {return m_MeshScale;};
+    FORCEINLINE glm::vec2& Position() {return m_Position;};
+    FORCEINLINE GLfloat& Scale() {return m_Scale;};
 };
 
 #endif

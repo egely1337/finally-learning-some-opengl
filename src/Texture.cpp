@@ -33,9 +33,9 @@ void Texture::Load(std::string&& Path) {
     /* Create Texture in OpenGL */
     OpenGL::GenTexture(1, &m_TextureId);
     APP_ASSERT(m_TextureId > 0 && "Failed to generate texture.\n");
-    OpenGL::BindTexture(GL_TEXTURE_2D, m_TextureId);
 
     /* Parameters */
+    OpenGL::BindTexture(GL_TEXTURE_2D, m_TextureId);
     TEXTURE_REPEAT_PARAMETERS();
 
     /* Bind Texture Source */

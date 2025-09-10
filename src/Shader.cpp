@@ -61,6 +61,12 @@ void Shader::SetUniform4f(std::string Name, const GLfloat* Matrix4f) {
     OpenGL::SetUniformMatrix4f(m_ProgramId, Name, Matrix4f);
 }
 
+void Shader::SetUniform2f(std::string Name, GLfloat x, GLfloat y)
+{
+    APP_ASSERT(m_ProgramId > 0 && "You should compile shader first.");
+    OpenGL::SetUniform2f(m_ProgramId, Name, x, y);
+}
+
 void Shader::SetUniform1f(std::string Name, GLfloat Val)
 {
     APP_ASSERT(m_ProgramId > 0 && "You should compile shader first.");

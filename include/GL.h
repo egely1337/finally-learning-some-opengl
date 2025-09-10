@@ -63,6 +63,9 @@ public:
     FORCEINLINE static void SetUniform1f(GLuint ProgramId, std::string VariableName, GLfloat Val) {
         glUniform1f(glGetUniformLocation(ProgramId, VariableName.c_str()), Val);
     }
+    FORCEINLINE static void SetUniform2f(GLuint ProgramId, std::string VariableName, GLfloat x, GLfloat y) {
+        glUniform2f(glGetUniformLocation(ProgramId, VariableName.c_str()), x, y);
+    }
     FORCEINLINE static void SetUniform1i(GLuint ProgramId, std::string VariableName, GLint Val) {
         glUniform1i(glGetUniformLocation(ProgramId, VariableName.c_str()), Val);
     }
