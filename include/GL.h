@@ -63,11 +63,23 @@ public:
     FORCEINLINE static void SetUniform1f(GLuint ProgramId, std::string VariableName, GLfloat Val) {
         glUniform1f(glGetUniformLocation(ProgramId, VariableName.c_str()), Val);
     }
+    FORCEINLINE static void SetUniform1i(GLuint ProgramId, std::string VariableName, GLint Val) {
+        glUniform1i(glGetUniformLocation(ProgramId, VariableName.c_str()), Val);
+    }
     FORCEINLINE static void DeleteBuffers(GLuint Count, GLuint* BufferId) {
         glDeleteBuffers(Count, BufferId);
     }
     FORCEINLINE static void DeleteArrays(GLuint Count, GLuint* ArrayId) {
         glDeleteVertexArrays(Count, ArrayId);
+    }
+    FORCEINLINE static void GenTexture(GLsizei Count, GLuint *Id) {
+        glGenTextures(Count, Id);
+    }
+    FORCEINLINE static void BindTexture(GLenum Target, GLuint Id) {
+        glBindTexture(Target, Id);
+    }
+    FORCEINLINE static void TexImage2D(GLenum Target, GLint Level, GLint InternalFormat, GLsizei Width, GLsizei Height, GLint Border, GLenum Format, GLenum Type, const void *Pixels) {
+        glTexImage2D(Target, Level, InternalFormat, Width, Height, Border, Format, Type, Pixels);
     }
 };
 

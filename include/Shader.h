@@ -23,6 +23,7 @@ public:
     void Destroy();
     void SetUniform4f(std::string Name, const GLfloat* Matrix4f);
     void SetUniform1f(std::string Name, GLfloat Val);
+    void SetUniform1i(std::string Name, GLint Val);
     FORCEINLINE char* GetErrorMessage() { return m_ErrorMsg; }
 };
 

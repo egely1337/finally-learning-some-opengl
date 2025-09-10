@@ -20,15 +20,25 @@ bool Shader::CreateShaderFromSource(std::string VertexShaderSrc, std::string Fra
     GLuint VertexShaderId = glCreateShader(APP_VERTEX_SHADER);
     OpenGL::ShaderSource(VertexShaderId, 1, &vertex, NULL);
     OpenGL::CompileShader(VertexShaderId);
+
+    /* Fragment Shader */
     GLuint FragmentShaderId = glCreateShader(APP_FRAGMENT_SHADER);
     OpenGL::ShaderSource(FragmentShaderId, 1, &fragment, NULL);
     OpenGL::CompileShader(FragmentShaderId);
 
-    /* Check shader compile errors. */
+    /* Check vertex shader compile errors. */
     GLint success;
     glGetShaderiv(VertexShaderId, GL_COMPILE_STATUS, &success);
     if(!success) {
         glGetShaderInfoLog(VertexShaderId, 512, NULL, m_ErrorMsg);
+        fprintf(stderr, "Shader Compilation Error: %s\n" ,m_ErrorMsg);
+        return false;
+    }
+
+    /* Check fragment shader compile errors. */
+    glGetShaderiv(FragmentShaderId, GL_COMPILE_STATUS, &success);
+    if(!success) {
+        glGetShaderInfoLog(FragmentShaderId, 512, NULL, m_ErrorMsg);
         fprintf(stderr, "Shader Compilation Error: %s\n" ,m_ErrorMsg);
         return false;
     }
@@ -55,6 +65,12 @@ void Shader::SetUniform1f(std::string Name, GLfloat Val)
 {
     APP_ASSERT(m_ProgramId > 0 && "You should compile shader first.");
     OpenGL::SetUniform1f(m_ProgramId, Name, Val);
+}
+
+void Shader::SetUniform1i(std::string Name, GLint Val)
+{
+    APP_ASSERT(m_ProgramId > 0 && "You should compile shader first.");
+    OpenGL::SetUniform1i(m_ProgramId, Name, Val);
 }
 
 void Shader::Bind()
