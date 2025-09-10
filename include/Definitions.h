@@ -4,7 +4,7 @@
 #include <assert.h>
 
 #define APP_ASSERT(expr) assert(expr)
-#define NOT_IMPLEMENTED() ;;
+#define NOT_IMPLEMENTED() APP_ASSERT(0 && "NOT IMPLEMENTED!");
 #define FORCEINLINE __attribute__((always_inline))
 
 #endif
